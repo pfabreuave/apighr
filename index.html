@@ -2,50 +2,62 @@
 <html>
 <head>
 	<link rel="stylesheet" href="estilosg.css">
-	<title>API de GitHub</title>
+	<title>API GitHub</title>
 </head>
 <body>
 	<form>
-				<h2>Repositorio do GitHub</h2>
-				USUARIO GH: <input type="text" id="usergh">
-				<input type="button" value="Buscar" onclick="buscarGH()">
-				
-				<input type="button" value="Limpar" onclick="location.reload()"/>
+				<div id="avatar"> </div>
+				<h3 id=nombre ></h3>
+				<h2 class="title">Repositorio do GitHub</h2>
+					<input 
+						type="text" 
+						class="userInput" 
+						id="usergh"				
+						placeholder="Buscar usuario"
+					/>
+					<input 
+						type="button"
+						class="searchButton" 
+						value="Buscar" 
+						onclick="buscarGH()"
+					/>			
 	</form>
 	<header>
 		 <div class="img">
-			 <!img src="fotosp/cafepedro.jpg"  width="700" height="300" alt="historia portafolio"> 	
 		 </div> 
 		
 		<div id="contenido"></div>
 	</header>
 <script type="text/javascript">
 	function buscarGH() {
+		contenido.innerHTML = ' '
 		var usergh = document.getElementById("usergh");
+		var urlu = "https://api.github.com/users/" + usergh.value;
+		fetch(urlu, {method: 'GET'})
+			.then(function(response){
+				return response.json()
+			})
+			.then(function(users){
+				avatar.innerHTML +=`<img  class= imagen src =${users.avatar_url} alt='imagen Avatar'/>`
+				nombre.innerHTML +=`<h3>  ${users.name} </h3>`	 	
+			})	
 		var url = "https://api.github.com/users/" + usergh.value + "/repos";
-		console.log(url)
-/*		fetch('https://api.github.com/users/pfabreuave/repos') */
 		fetch(url, {method: 'GET'})
 			.then(function(response){
 				return response.json()
 			})
 			.then(function(data){
-				console.log(data.length)
 				 var cont = 0
 				 for(cont=0;cont<data.length;cont++){ 
-				 contenido.innerHTML +=` <div class="card">
-				<a href="${data[cont].html_url}" target="blank_">  ${data[cont].name} </a>
- 				</div>`
-				
+				 	contenido.innerHTML +=` <div class="card">
+					<a href="${data[cont].html_url}" target="blank_">  ${data[cont].name} </a>
+ 					</div>`
 				}
 			})
-
-
+		avatar.innerHTML = ' '
+		nombre.innerHTML = ' '
 	}
-
 	  function actualizar(){location.reload(true);}
-				
-
 </script>
 </body>
 </html>
