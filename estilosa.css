@@ -15,6 +15,11 @@ https://www.color-hex.com/color/00ffff
     div {
       font-size: 16px;
     }
+	header {
+		font-size: 12px;
+		flex-direction: column;
+	  }
+
   }
 html{
 	margin: 0;
@@ -35,11 +40,9 @@ header {
 }
 div{
 	display: flex;
-
 	justify-content: space-between;
 	flex-wrap: wrap;	
 }
-
 div a{
 	text-decoration: none;
 	font-size: 20px;
@@ -48,12 +51,10 @@ div a{
 	color: #000;
 	transition: 0.5s;	
 }
-
 body{ 	
 	text-align: center;
 	display: flex;
-	flex-direction: column;
-	
+	flex-direction: column;	
 	background-color: #1f4242;
 }
 .userInput {
